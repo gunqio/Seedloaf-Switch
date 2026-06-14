@@ -9,18 +9,18 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: 📥 拉取脚本仓库
+      - name: 📥 拉取私库脚本
         uses: actions/checkout@v4
         with:
           repository: gunqio/zhiyong
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}   # 对公开仓库也可以不填 token，但保留也无害
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           path: private
 
       - name: 📂 复制脚本到工作目录
         run: cp private/seedloaf_switch.py seedloaf_switch.py
 
-      - name: 🐍 安装 Python 依赖
-        run: pip install requests --quiet
+      - name: 🐍 安装 Python 依赖（含 SOCKS 支持）
+        run: pip install requests[socks] --quiet
 
       - name: 🛡️ 启动 GOST 代理转发
         if: ${{ env.GOST_PROXY != '' }}
