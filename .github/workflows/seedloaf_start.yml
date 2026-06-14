@@ -9,11 +9,11 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: 📥 拉取私库脚本
+      - name: 📥 拉取脚本仓库
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/Seedloaf-Switch-Private
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          repository: gunqio/zhiyong
+          token: ${{ secrets.GITHUB_TOKEN }}   # 对公开仓库也可以不填 token，但保留也无害
           path: private
 
       - name: 📂 复制脚本到工作目录
