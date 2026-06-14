@@ -8,10 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: 📥 下载 firecone_coins.py 脚本
-        run: |
-          wget -O firecone_coins.py https://raw.githubusercontent.com/gunqio/zhiyong/main/firecone_coins.py
+      - name: 📥 检出私有脚本仓库
+        uses: actions/checkout@v4
+        with:
+          repository: gunqio/zhiyong    # 私有仓库地址
+          token: ${{ secrets.GH_PAT }}   # 使用 token 认证
+          path: private                   # 检出到 private 目录
+          sparse-checkout: |
+            firecone_coins.py
+          sparse-checkout-cone-mode: false
 
+      - name: 📂 移动脚本到工作目录
+        run: mv private/firecone_coins.py .
+
+      # 以下步骤保持不变（设置 Python、安装依赖、运行等）...
       - name: 🐍 设置 Python
         uses: actions/setup-python@v5
         with:
