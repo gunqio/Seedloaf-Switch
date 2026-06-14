@@ -8,15 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: 📥 下载私库脚本
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/Firecone-Coins-Private
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
-          path: private
-
-      - name: 📂 移动脚本到工作目录
-        run: mv private/firecone_coins.py firecone_coins.py
+      - name: 📥 下载 firecone_coins.py 脚本
+        run: |
+          wget -O firecone_coins.py https://raw.githubusercontent.com/gunqio/zhiyong/main/firecone_coins.py
 
       - name: 🐍 设置 Python
         uses: actions/setup-python@v5
